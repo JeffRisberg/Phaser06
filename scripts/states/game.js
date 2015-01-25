@@ -1,4 +1,4 @@
-define(['game/extensions/PausePanel'], function (PausePanel) {
+define(['extensions/PausePanel'], function (PausePanel) {
     'use strict';
     var game;
 

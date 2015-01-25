@@ -14,7 +14,7 @@ define(function () {
 
             this.loading = this.add.sprite(this.game.world.width / 2 - 50, this.game.world.height / 2 - 50, 'preloader');
             this.loading.anchor.setTo(0.5, 0.5);
-            this.loading.scale.set(0.3);
+            //this.loading.scale.set(0.3);
 
             this.game.load.setPreloadSprite(this.loading);
 
@@ -29,6 +29,7 @@ define(function () {
             this.game.load.image('tower3', 'assets/sprites/tower3.png');
 
             this.game.load.image('menu', 'assets/backgrounds/menu.png');
+            this.game.load.image('background', 'assets/backgrounds/background.png');
 
             this.load.spritesheet('btn-game-start', 'assets/buttons/btn-game-start.png', 401, 143);
         },

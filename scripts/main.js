@@ -1,17 +1,16 @@
 'use strict';
 
 requirejs.config({
-    //baseUrl: './scripts',
     paths: {
         //libs
         almond: '../bower_components/almond/almond',
         phaser: '../bower_components/phaser/build/phaser.min',
 
         //states
-        bootState: 'game/states/boot',
-        preloadState: 'game/states/preload',
-        menuState: 'game/states/menu',
-        gameState: 'game/states/game'
+        bootState: 'states/boot',
+        preloadState: 'states/preload',
+        menuState: 'states/menu',
+        gameState: 'states/game'
     }
 });
 
