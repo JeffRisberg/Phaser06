@@ -35,4 +35,3 @@ define(['Phaser'], function (Phaser) {
 
     return PausePanel;
 });
-
