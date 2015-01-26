@@ -14,7 +14,7 @@ define(function () {
         create: function () {
             this.game.state.start('preload');
         }
-    }
+    };
 
     return Boot;
 });
