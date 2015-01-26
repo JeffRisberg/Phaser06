@@ -46,9 +46,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Tower', 'extension
             houses.enableBody = true;
             this.game.physics.enable(houses, Phaser.Physics.ARCADE);
 
-            // Create one House
-            //new House('house', 100);
-
             // Create group for monsters
             monsters = this.game.add.group();
             monsters.enableBody = true;
@@ -104,6 +101,9 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Tower', 'extension
             text = "Score " + score;
             scoreText = this.game.add.text(this.game.width - 220, 100, text, { font: "14px Arial", fill: "#FFFFFF", align: "left" });
 
+            // Create one House
+            this.addOneHouse();
+
             var freq = 4500;
             monsters.createMultiple(15, 'monster');
             timers['monster'] = this.game.time.events.loop(freq, this.addOneMonster, this);
@@ -116,19 +116,31 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Tower', 'extension
             });
         },
 
+        addOneHouse: function () {
+            var house = houses.getFirstDead();
+
+            if (true || house === null) {
+                var pathLength = this.game.tilePath.length;
+                var tileX = this.game.tilePath[pathLength-1].x;
+                var tileY = this.game.tilePath[pathLength-1].y;
+
+                house = new House(this.game, tileX, tileY, 1);
+                houses.add(house);
+            }
+        },
+
         addOneMonster: function () {
             var monster = monsters.getFirstDead();
 
             if (true || monster === null) {
                 var tileX = this.game.tilePath[0].x;
                 var tileY = this.game.tilePath[0].y;
-                console.log("new monster at " + tileX + ", " + tileY);
+
                 monster = new Monster(this.game, tileX, tileY, 1);
                 monsters.add(monster);
             }
             monster.checkWorldBounds = true;
             monster.outOfBoundsKill = true;
-            monster.anchor.setTo(0.5, 0.5);
         },
 
         /**

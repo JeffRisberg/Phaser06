@@ -1,14 +1,12 @@
 define(['Phaser'], function (Phaser) {
     'use strict';
 
-    var House = function (game, x, y, frame) { // Extends Phaser.Sprite
-        Phaser.Sprite.call(this, game, x, y, 'house', frame);
+    var House = function (game, xTile, yTile, frame) { // Extends Phaser.Sprite
+        Phaser.Sprite.call(this, game, xTile * game.tileSize - 1, yTile * game.tileSize, 'house', frame);
 
-        this.scale.setTo(2, 2);
+        this.scale.setTo(1.0, 1.0);
         this.anchor.setTo(0.5, 0.5);
         this.alive = true;
-        this.animations.add('default', [4], 10, true);
-        this.animations.play('default');
         this.game.physics.arcade.enableBody(this);
 
         this.body.allowGravity = false;
