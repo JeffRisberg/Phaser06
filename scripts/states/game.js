@@ -139,8 +139,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Tower', 'extension
                 monster = new Monster(this.game, tileX, tileY, 1);
                 monsters.add(monster);
             }
-            monster.checkWorldBounds = true;
-            monster.outOfBoundsKill = true;
         },
 
         /**
