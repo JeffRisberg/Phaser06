@@ -12,6 +12,18 @@ define(['Phaser'], function (Phaser) {
         this.body.allowGravity = false;
         this.tile = -1;
         this.speed = 2.5;
+        this.health = 100;
+        this.maxHealth = 100;
+
+        this.healthBar = this.game.add.graphics(0, 0);
+        this.healthBar.lineStyle(2, 0x000000, 1);
+        this.healthBar.beginFill(0xFFFF00, 0.8);
+        this.healthBar.drawRect(0, 0, this.width, 5);
+
+        this.healthBarStatus = this.game.add.graphics(0, 0);
+        this.healthBarStatus.lineStyle(2, 0x000000, 0);
+        this.healthBarStatus.beginFill(0x00FF00, 0.9);
+        this.healthBarStatus.drawRect(0, 0, this.width, 5);
 
         Monster.prototype.nextMove(this);
         Monster.prototype.move(this);
@@ -24,7 +36,7 @@ define(['Phaser'], function (Phaser) {
         monster.x += monster.speedX;
         monster.y += monster.speedY;
 
-        if        (monster.speedX > 0 && monster.x >= monster.nextPosX) {
+        if (monster.speedX > 0 && monster.x >= monster.nextPosX) {
             monster.x = monster.nextPosX;
             Monster.prototype.nextMove(monster);
         } else if (monster.speedX < 0 && monster.x <= monster.nextPosX) {
@@ -37,6 +49,15 @@ define(['Phaser'], function (Phaser) {
             monster.y = monster.nextPosY;
             Monster.prototype.nextMove(monster);
         }
+
+        monster.healthBar.x = monster.x - monster.width / 2;
+        monster.healthBar.y = monster.y - monster.height / 2 - 10;
+
+        monster.healthBarStatus.x = monster.x - monster.width / 2;
+        monster.healthBarStatus.y = monster.y - monster.height / 2 - 10;
+
+        var healthRatio = monster.health / monster.maxHealth;
+        monster.healthBarStatus.scale.x = healthRatio;
     };
 
     Monster.prototype.nextMove = function (monster) {
@@ -61,6 +82,9 @@ define(['Phaser'], function (Phaser) {
         } else {
             monster.speedY = 0;
         }
+
+        monster.health = monster.health - 1;
+        if (monster.health < 0) monster.health = 0;
     };
 
     return Monster;

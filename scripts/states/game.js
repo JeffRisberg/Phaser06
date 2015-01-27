@@ -105,7 +105,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Tower', 'extension
             this.addOneHouse();
 
             var freq = 4500;
-            monsters.createMultiple(15, 'monster');
             timers['monster'] = this.game.time.events.loop(freq, this.addOneMonster, this);
         },
 
