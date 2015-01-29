@@ -1,11 +1,12 @@
 'use strict';
 
 requirejs.config({
+    baseUrl: './scripts/',
     paths: {
         //libs
         almond: '../bower_components/almond/almond',
-        phaser: '../bower_components/phaser/build/phaser.min',
-
+        phaser: '../bower_components/phaser/build/phaser',
+        Phaser: '../bower_components/phaser/build/phaser',
         //states
         bootState: 'states/boot',
         preloadState: 'states/preload',
@@ -27,7 +28,6 @@ require([
     phaserGame.state.add('preload', preload);
     phaserGame.state.add('menu', menu);
     phaserGame.state.add('game', game);
-
     phaserGame.state.start('boot');
 
     return phaserGame;
