@@ -5,7 +5,6 @@ define(['Phaser'], function (Phaser) {
         console.log("creating tower");
         Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
-        // Salva tile em que estÃ¡
         this.xTile = x / this.game.tileSize;
         this.yTile = y / this.game.tileSize;
 
@@ -26,6 +25,7 @@ define(['Phaser'], function (Phaser) {
         this.bulletSprite = bulletSprite;
 
         this.body.allowGravity = false;
+        console.log("end creating a tower");
     };
 
     Tower.prototype = Object.create(Phaser.Sprite.prototype);
