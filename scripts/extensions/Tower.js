@@ -1,8 +1,9 @@
 define(['Phaser'], function (Phaser) {
     'use strict';
 
-    var Tower = function (game, x, y, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
-        Phaser.Sprite.call(this, game, x, y, 'tower', frame);
+    var Tower = function (game, x, y, sprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
+        console.log("creating tower");
+        Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
         // Salva tile em que estÃ¡
         this.xTile = x / this.game.tileSize;

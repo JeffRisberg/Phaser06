@@ -148,6 +148,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 var x = pointer.x;
                 var y = pointer.y;
 
+                console.log("adding a tower at " + x + " " + y);
                 var sprite = 'tower';
                 var offsetX = 30;
                 var offsetY = 20;
@@ -159,7 +160,8 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 var price = 300;
                 var bulletSprite = 'bullet';
 
-                new Tower(x.worldX, y, offsetX, offsetY, sprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
+                new Tower(this.game, x, y, sprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
+                towers.add(tower);
             },
 
             /**
