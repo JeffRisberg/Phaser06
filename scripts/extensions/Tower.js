@@ -1,7 +1,7 @@
 define(['Phaser'], function (Phaser) {
     'use strict';
 
-    var Tower = function (game, x, y, damage, range, fireRate, health, bulletSpeed, frame) { // Extends Phaser.Sprite
+    var Tower = function (game, x, y, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
         Phaser.Sprite.call(this, game, x, y, 'tower', frame);
 
         // Salva tile em que estÃ¡
@@ -21,6 +21,8 @@ define(['Phaser'], function (Phaser) {
         this.fireRate = fireRate;
         this.lastShot = game.time.now;
         this.bulletSpeed = bulletSpeed;
+        this.price = price;
+        this.bulletSprite = bulletSprite;
 
         this.body.allowGravity = false;
     };
@@ -49,14 +51,12 @@ define(['Phaser'], function (Phaser) {
     };
 
     Tower.prototype.fire = function (tower, monster) {
-        //var sfxFire = game.add.audio('towerFire');
-        //sfxFire.play();
         new Bullet(tower.x, tower.y, monster.x, monster.y, tower.bulletSpeed, tower.damage, tower, tower.bulletSprite);
     };
 
     Tower.prototype.damageTaken = function (tower, monster) {
         tower.health -= monster.damage;
-        if (tower.health <= 0 && tower.imortal === false) {
+        if (tower.health <= 0) {
             Tower.prototype.death(this);
         }
     };

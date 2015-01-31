@@ -138,7 +138,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                     var tileX = this.game.tilePath[0].x;
                     var tileY = this.game.tilePath[0].y;
 
-                    monster = new Monster(this.game, tileX, tileY, 1);
+                    monster = new Monster(this.game, tileX, tileY, 30, 'monster', 1);
                     monsters.add(monster);
                 }
             },
@@ -157,7 +157,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 var health = 1000;
                 var bulletSpeed = 75;
                 var price = 300;
-                var bulletSprite = 'arrow_fire';
+                var bulletSprite = 'bullet';
 
                 new Tower(x.worldX, y, offsetX, offsetY, sprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
             },

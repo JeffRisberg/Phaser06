@@ -1,8 +1,8 @@
 define(['Phaser'], function (Phaser) {
     'use strict';
 
-    var Monster = function (game, xTile, yTile, frame) { // Extends Phaser.Sprite
-        Phaser.Sprite.call(this, game, xTile * game.tileSize - 1, yTile * game.tileSize, 'monster', frame);
+    var Monster = function (game, xTile, yTile, damage, monsterSprite, frame) { // Extends Phaser.Sprite
+        Phaser.Sprite.call(this, game, xTile * game.tileSize - 1, yTile * game.tileSize, monsterSprite, frame);
 
         this.scale.setTo(1.5, 1.5);
         this.anchor.setTo(0.5, 0.5);
@@ -14,6 +14,7 @@ define(['Phaser'], function (Phaser) {
         this.speed = 2.5;
         this.health = 100;
         this.maxHealth = 100;
+        this.damage = damage;
 
         this.healthBar = this.game.add.graphics(0, 0);
         this.healthBar.lineStyle(2, 0x000000, 1);
