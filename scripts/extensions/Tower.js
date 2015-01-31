@@ -7,7 +7,8 @@ define(['Phaser'], function (Phaser) {
 
         this.xTile = x / this.game.tileSize;
         this.yTile = y / this.game.tileSize;
-
+        console.log(this.xTile);
+        console.log(this.yTile);
         this.scale.setTo(2, 2);
         this.anchor.setTo(0.5, 0.5);
         this.alive = true;
