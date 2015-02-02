@@ -112,19 +112,28 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 monsters.forEach(function (monster) {
                     Monster.prototype.move(monster);
                 });
+
+                towers.forEach(function (tower) {
+                    Tower.prototype.attack(tower, monsters);
+                });
+
             },
 
             // add a house at the end of the path
             addOneHouse: function () {
                 var house = houses.getFirstDead();
 
-                if (true || house === null) {
-                    var pathLength = this.game.tilePath.length;
-                    var tileX = this.game.tilePath[pathLength - 1].x;
-                    var tileY = this.game.tilePath[pathLength - 1].y;
+                var pathLength = this.game.tilePath.length;
+                var tileX = this.game.tilePath[pathLength - 1].x;
+                var tileY = this.game.tilePath[pathLength - 1].y;
 
+                if (house === null) {
                     house = new House(this.game, tileX, tileY, 1);
                     houses.add(house);
+                }
+                else {
+                    house.x = 300;
+                    house.y = 300;
                 }
             },
 
@@ -149,7 +158,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 var towerSprite = 'tower';
                 var offsetX = 30;
                 var offsetY = 20;
-                var damage = 300;
+                var damage = 30;
                 var range = 4;
                 var fireRate = 2500;
                 var health = 1000;

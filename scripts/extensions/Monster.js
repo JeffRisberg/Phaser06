@@ -83,9 +83,14 @@ define(['Phaser'], function (Phaser) {
         } else {
             monster.speedY = 0;
         }
+    };
 
-        monster.health = monster.health - 1;
-        if (monster.health < 0) monster.health = 0;
+    Monster.prototype.hit = function(monster, damage) {
+        console.log("monster hit with " + damage);
+        monster.health -= damage;
+        if (monster.health < 0) {
+            monster.kill();
+        }
     };
 
     return Monster;

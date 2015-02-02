@@ -1,4 +1,4 @@
-define(['Phaser'], function (Phaser) {
+define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
     'use strict';
 
     var Tower = function (game, x, y, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
@@ -28,23 +28,23 @@ define(['Phaser'], function (Phaser) {
     Tower.prototype = Object.create(Phaser.Sprite.prototype);
     Tower.prototype.constructor = Tower;
 
-    Tower.prototype.update = function (tower) {
-    };
-
-    Tower.prototype.attack = function (tower) {
+    Tower.prototype.attack = function (tower, monsters) {
         if (tower.game.time.now > tower.lastShot) {
 
+            console.log("checking targets");
             var targets = [];
             monsters.forEach(function (monster) {
-                if (Math.abs(tower.game.tilePath[monster.tile].y - tower.yTile) < tower.range &&
-                    Math.abs(tower.game.tilePath[monster.tile].x - tower.xTile) < tower.range) {
+                if (Math.abs(tower.game.tilePath[monster.tile].y - tower.yTile) <= tower.range &&
+                    Math.abs(tower.game.tilePath[monster.tile].x - tower.xTile) <= tower.range) {
                     targets.push(monster);
                 }
             });
             if (targets.length > 0) {
-                Tower.prototype.fire(tower, targets[0]);
+                console.log("firing on " + targets[0]);
+                Monster.prototype.hit(targets[0], tower.damage);
+                //Tower.prototype.fire(tower, targets[0]);
             }
-            tower.lastShot = game.time.now + tower.fireRate;
+            tower.lastShot = tower.game.time.now + tower.fireRate;
         }
     };
 
