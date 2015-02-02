@@ -85,10 +85,14 @@ define(['Phaser'], function (Phaser) {
         }
     };
 
-    Monster.prototype.hit = function(monster, damage) {
-        console.log("monster hit with " + damage);
+    Monster.prototype.damageTaken = function (monster, damage) {
         monster.health -= damage;
+
         if (monster.health < 0) {
+            monster.health = 0;
+
+            monster.healthBar.destroy();
+            monster.healthBarStatus.destroy();
             monster.kill();
         }
     };

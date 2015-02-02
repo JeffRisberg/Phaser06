@@ -41,7 +41,7 @@ define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
             });
             if (targets.length > 0) {
                 console.log("firing on " + targets[0]);
-                Monster.prototype.hit(targets[0], tower.damage);
+                Monster.prototype.damageTaken(targets[0], tower.damage);
                 //Tower.prototype.fire(tower, targets[0]);
             }
             tower.lastShot = tower.game.time.now + tower.fireRate;
@@ -52,9 +52,11 @@ define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
         new Bullet(tower.x, tower.y, monster.x, monster.y, tower.bulletSpeed, tower.damage, tower, tower.bulletSprite);
     };
 
-    Tower.prototype.damageTaken = function (tower, monster) {
-        tower.health -= monster.damage;
+    Tower.prototype.damageTaken = function (tower, damage) {
+        tower.health -= damage;
+
         if (tower.health <= 0) {
+            tower.health = 0;
             Tower.prototype.death(this);
         }
     };
