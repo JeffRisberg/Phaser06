@@ -74,7 +74,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 house = this.game.add.sprite(this.game.width - 200, this.game.height - 150, 'house');
                 house.inputEnabled = true;
                 house.input.enableDrag();
-                house.input.enableSnap(32, 32, true, true);
                 //house.events.onDragStop.add(this.onDragStop, this);
                 text = "House";
                 this.game.add.text(this.game.width - 120, this.game.height - 150, text, style1);
@@ -86,7 +85,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 tower = this.game.add.sprite(this.game.width - 200, this.game.height - 250, 'tower');
                 tower.inputEnabled = true;
                 tower.input.enableDrag();
-                tower.input.enableSnap(32, 32, true, true);
                 tower.events.onDragStop.add(this.addOneTower, this);
                 text = "Tower";
                 this.game.add.text(this.game.width - 120, this.game.height - 250, text, style1);
@@ -145,11 +143,10 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
             // add a tower at the mouse position
             addOneTower: function (sprite, pointer) {
-                var x = pointer.x;
-                var y = pointer.y;
+                var x = sprite.x + this.game.tileSize / 2;
+                var y = sprite.y + this.game.tileSize / 2;
 
-                console.log("adding a tower at " + x + " " + y);
-                var sprite = 'tower';
+                var towerSprite = 'tower';
                 var offsetX = 30;
                 var offsetY = 20;
                 var damage = 300;
@@ -160,8 +157,11 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 var price = 300;
                 var bulletSprite = 'bullet';
 
-                new Tower(this.game, x, y, sprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
-                towers.add(tower);
+                var newTower = new Tower(this.game, x, y, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
+                towers.add(newTower);
+
+                sprite.x = this.game.width - 200;
+                sprite.y = this.game.height - 250;
             },
 
             /**

@@ -1,15 +1,12 @@
 define(['Phaser'], function (Phaser) {
     'use strict';
 
-    var Tower = function (game, x, y, sprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
-        console.log("creating tower");
-        Phaser.Sprite.call(this, game, x, y, sprite, frame);
+    var Tower = function (game, x, y, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
+        this.xTile = Math.round(x / game.tileSize);
+        this.yTile = Math.round(y / game.tileSize);
 
-        this.xTile = x / this.game.tileSize;
-        this.yTile = y / this.game.tileSize;
-        console.log(this.xTile);
-        console.log(this.yTile);
-        this.scale.setTo(2, 2);
+        Phaser.Sprite.call(this, game, this.xTile * game.tileSize, this.yTile * game.tileSize, towerSprite, frame);
+
         this.anchor.setTo(0.5, 0.5);
         this.alive = true;
         this.animations.add('default', [4], 10, true);
@@ -26,7 +23,6 @@ define(['Phaser'], function (Phaser) {
         this.bulletSprite = bulletSprite;
 
         this.body.allowGravity = false;
-        console.log("end creating a tower");
     };
 
     Tower.prototype = Object.create(Phaser.Sprite.prototype);
