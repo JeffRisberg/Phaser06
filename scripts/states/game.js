@@ -25,6 +25,9 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
         function Game(_game) {
             game = _game;
+
+            score = 0;
+            money = 1000;
         }
 
         Game.prototype = {
