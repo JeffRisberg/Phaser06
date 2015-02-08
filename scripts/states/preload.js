@@ -24,6 +24,8 @@ define(function () {
             this.game.load.image('house', 'assets/sprites/house.jpg');
             this.game.load.image('monster', 'assets/sprites/monster.png');
 
+            this.game.load.atlasJSONHash('explosion', 'assets/sprites/explosion.png', 'assets/sprites/explosion.json');
+
             this.game.load.tilemap('tileData', 'assets/tilemaps/tileData.json', null, Phaser.Tilemap.TILED_JSON);
             this.game.load.image('tileSet', 'assets/tilemaps/tileSet.png');
             this.game.load.image('mapImage', 'assets/tilemaps/mapArt.png');
