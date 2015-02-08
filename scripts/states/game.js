@@ -3,9 +3,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
         'use strict';
         var game;
 
-        var score = 0;
-        var money = 1000;
-
         // Primary map display
         var mapSprite;
 
@@ -15,8 +12,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
         var towers;
         var bullets;
 
-        var moneyText;
-        var scoreText;
         var house;
         var tower;
         var map;
@@ -26,8 +21,8 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
         function Game(_game) {
             game = _game;
 
-            score = 0;
-            money = 1000;
+            game.score = 0;
+            game.money = 1000;
         }
 
         Game.prototype = {
@@ -94,14 +89,11 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 text = "$100";
                 this.game.add.text(this.game.width - 120, this.game.height - 230, text, style2);
 
-                score = 0;
-                money = 1000;
+                var text = "Cash available: $" + game.money;
+                this.game.moneyText = this.game.add.text(this.game.width - 220, 50, text, { font: "14px Arial", fill: "#FFFFFF", align: "left" });
 
-                var text = "Cash available $ " + money;
-                moneyText = this.game.add.text(this.game.width - 220, 50, text, { font: "14px Arial", fill: "#FFFFFF", align: "left" });
-
-                text = "Score " + score;
-                scoreText = this.game.add.text(this.game.width - 220, 100, text, { font: "14px Arial", fill: "#FFFFFF", align: "left" });
+                text = "Score: " + game.score;
+                this.game.scoreText = this.game.add.text(this.game.width - 220, 100, text, { font: "14px Arial", fill: "#FFFFFF", align: "left" });
 
                 // Create one House
                 this.addOneHouse();
@@ -174,6 +166,8 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
                 sprite.x = this.game.width - 200;
                 sprite.y = this.game.height - 250;
+                this.game.money -= 100;
+                this.game.moneyText.text = 'Cash available: $' + this.game.money;
             },
 
             /**
