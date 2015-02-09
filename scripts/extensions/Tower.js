@@ -47,7 +47,7 @@ define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
             });
             if (targets.length > 0) {
                 tower.laserBeam.lineStyle(5, 0xFF0000);
-                tower.laserBeam.moveTo(tower.x, tower.y - tower.height / 2);
+                tower.laserBeam.moveTo(tower.x, tower.y - tower.height / 2 + 10);
                 tower.laserBeam.lineTo(targets[0].x, targets[0].y);
 
                 Monster.prototype.damageTaken(targets[0], tower.damage);

@@ -66,6 +66,9 @@ define(['Phaser'], function (Phaser) {
 
         var healthRatio = monster.health / monster.maxHealth;
         monster.healthBarStatus.scale.x = healthRatio;
+
+        monster.explosion.x = monster.x;
+        monster.explosion.y = monster.y;
     };
 
     Monster.prototype.nextMove = function (monster) {
@@ -106,8 +109,6 @@ define(['Phaser'], function (Phaser) {
             monster.game.scoreText.text = 'Score: ' + monster.game.score;
         }
         else {
-            monster.explosion.x = monster.x;
-            monster.explosion.y = monster.y;
             monster.explosion.play('explosion', 10, false, false);
         }
     };
