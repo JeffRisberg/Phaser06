@@ -26,6 +26,13 @@ define(['Phaser'], function (Phaser) {
         this.healthBarStatus.beginFill(0x00FF00, 0.9);
         this.healthBarStatus.drawRect(0, 0, this.width, 5);
 
+        this.explosion = this.game.add.sprite(0, 0, 'explosion');
+        this.explosion.anchor.x = 0.5;
+        this.explosion.anchor.y = 0.5;
+        this.explosion.width = Math.abs(this.width);
+        this.explosion.scale.y = this.explosion.scale.x;
+        this.explosion.animations.add('explosion');
+
         Monster.prototype.nextMove(this);
         Monster.prototype.move(this);
     };
@@ -93,9 +100,15 @@ define(['Phaser'], function (Phaser) {
 
             monster.healthBar.destroy();
             monster.healthBarStatus.destroy();
+            monster.explosion.destroy();
             monster.kill();
             monster.game.score += 10;
             monster.game.scoreText.text = 'Score: ' + monster.game.score;
+        }
+        else {
+            monster.explosion.x = monster.x;
+            monster.explosion.y = monster.y;
+            monster.explosion.play('explosion', 10, false, false);
         }
     };
 
