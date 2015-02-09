@@ -33,6 +33,14 @@ define(['Phaser'], function (Phaser) {
         this.explosion.scale.y = this.explosion.scale.x;
         this.explosion.animations.add('explosion');
 
+        this.death = this.game.add.sprite(0, 0, 'death');
+        this.death.anchor.x = 0.5;
+        this.death.anchor.y = 0.5;
+        this.death.width = 150;
+        this.death.height = 150;
+        this.death.scale.y = this.death.scale.x;
+        this.death.animations.add('death');
+
         Monster.prototype.nextMove(this);
         Monster.prototype.move(this);
     };
@@ -104,6 +112,9 @@ define(['Phaser'], function (Phaser) {
             monster.healthBar.destroy();
             monster.healthBarStatus.destroy();
             monster.explosion.destroy();
+            monster.death.x = monster.x;
+            monster.death.y = monster.y;
+            monster.death.play('death', 10, false, true);
             monster.kill();
             monster.game.score += 10;
             monster.game.scoreText.text = 'Score: ' + monster.game.score;
