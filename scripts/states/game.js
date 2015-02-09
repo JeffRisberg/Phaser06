@@ -72,7 +72,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 house = this.game.add.sprite(this.game.width - 200, this.game.height - 150, 'house');
                 house.inputEnabled = true;
                 house.input.enableDrag();
-                //house.events.onDragStop.add(this.onDragStop, this);
+                house.events.onDragStop.add(this.addOneHouse, this);
                 text = "House";
                 this.game.add.text(this.game.width - 120, this.game.height - 150, text, style1);
                 text = "$50";
@@ -114,8 +114,15 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
             },
 
-            // add a house at the end of the path
-            addOneHouse: function () {
+            // add a house at the mouse position or end of path
+            addOneHouse: function (sprite, pointer) {
+                var x = 0;
+                var y = 0;
+
+                if (sprite != null) {
+                    x = sprite.x + this.game.tileSize / 2;
+                    y = sprite.y + this.game.tileSize / 2;
+                }
                 var house = houses.getFirstDead();
 
                 var pathLength = this.game.tilePath.length;
@@ -126,9 +133,10 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                     house = new House(this.game, tileX, tileY, 1);
                     houses.add(house);
                 }
-                else {
-                    house.x = 300;
-                    house.y = 300;
+
+                if (sprite != null) {
+                    sprite.x = this.game.width - 200;
+                    sprite.y = this.game.height - 150;
                 }
             },
 
@@ -242,7 +250,9 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
                 return null;
             }
-        };
+        }
+        ;
 
         return Game;
-    });
+    })
+;
