@@ -9,8 +9,6 @@ define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
 
         this.anchor.setTo(0.5, 0.5);
         this.alive = true;
-        //this.animations.add('default', [4], 10, true);
-        //this.animations.play('default');
         this.game.physics.arcade.enableBody(this);
 
         this.damage = damage;
@@ -24,12 +22,12 @@ define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
 
         this.body.allowGravity = false;
 
-        this.e = this.game.add.sprite(this.x, this.y - this.height / 2, 'explosion');
-        this.e.anchor.x = 0.5;
-        this.e.anchor.y = 0.5;
-        this.e.width = Math.abs(this.width);
-        this.e.scale.y = this.e.scale.x;
-        this.e.animations.add('explosion');
+        this.explosion = this.game.add.sprite(this.x, this.y - this.height / 2, 'explosion');
+        this.explosion.anchor.x = 0.5;
+        this.explosion.anchor.y = 0.5;
+        this.explosion.width = Math.abs(this.width);
+        this.explosion.scale.y = this.explosion.scale.x;
+        this.explosion.animations.add('explosion');
     };
 
     Tower.prototype = Object.create(Phaser.Sprite.prototype);
@@ -46,7 +44,7 @@ define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
                 }
             });
             if (targets.length > 0) {
-                tower.e.play('explosion', 10, false, false);
+                tower.explosion.play('explosion', 10, false, false);
                 Monster.prototype.damageTaken(targets[0], tower.damage);
                 //Tower.prototype.fire(tower, targets[0]);
             }

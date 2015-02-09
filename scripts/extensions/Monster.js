@@ -94,7 +94,7 @@ define(['Phaser'], function (Phaser) {
             monster.healthBar.destroy();
             monster.healthBarStatus.destroy();
             monster.kill();
-            monster.game.score =+ 10;
+            monster.game.score += 10;
             monster.game.scoreText.text = 'Score: ' + monster.game.score;
         }
     };
