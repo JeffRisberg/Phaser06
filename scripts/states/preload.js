@@ -34,6 +34,8 @@ define(function () {
             this.game.load.image('menu', 'assets/backgrounds/menu.png');
 
             this.load.spritesheet('btn-game-start', 'assets/buttons/btn-game-start.png', 401, 143);
+
+            this.load.audio('sfx', 'assets/audio/fx_mixdown.ogg');
         },
 
         create: function () {

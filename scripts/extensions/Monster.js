@@ -114,12 +114,14 @@ define(['Phaser'], function (Phaser) {
             monster.explosion.destroy();
             monster.death.x = monster.x;
             monster.death.y = monster.y;
+            monster.game.fx.play("death");
             monster.death.play('death', 10, false, true);
             monster.kill();
             monster.game.score += 10;
             monster.game.scoreText.text = 'Score: ' + monster.game.score;
         }
         else {
+            monster.game.fx.play("shot");
             monster.explosion.play('explosion', 10, false, false);
         }
     };

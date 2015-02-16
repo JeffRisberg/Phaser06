@@ -17,6 +17,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
         var map;
         var layer;
         var timers = {};
+        var fx;
 
         function Game(_game) {
             game = _game;
@@ -100,6 +101,11 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
                 var freq = 4500;
                 timers['monster'] = this.game.time.events.loop(freq, this.addOneMonster, this);
+
+                this.game.fx = game.add.audio('sfx');
+                this.game.fx.addMarker('ping', 10, 1.0);
+                this.game.fx.addMarker('death', 12, 4.2);
+                this.game.fx.addMarker('shot', 17, 1.0);
             },
 
             update: function () {
