@@ -14,8 +14,6 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
         var house;
         var tower;
-        var map;
-        var layer;
         var timers = {};
         var fx;
 
@@ -30,13 +28,13 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
             create: function () {
                 this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-                map = this.game.add.tilemap('tileData');
+                this.game.map = this.game.add.tilemap('tileData');
 
-                map.addTilesetImage('tileSet', 'tileSet');
+                this.game.map.addTilesetImage('tileSet', 'tileSet');
 
-                layer = map.createLayer('control');
+                this.game.layer = this.game.map.createLayer('control');
 
-                this.game.tilePath = this.calcPath(map, layer);
+                this.game.tilePath = this.calcPath(this.game.map, this.game.layer);
                 this.game.tileSize = 32;
 
                 mapSprite = this.game.add.sprite(0, 0, 'mapImage');
@@ -163,6 +161,8 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
             addOneTower: function (sprite, pointer) {
                 var x = sprite.x + this.game.tileSize / 2;
                 var y = sprite.y + this.game.tileSize / 2;
+                var xTile = Math.round(x / this.game.tileSize)-1;
+                var yTile = Math.round(y / this.game.tileSize)-1;
 
                 var towerSprite = 'tower';
                 var offsetX = 30;
@@ -175,13 +175,29 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 var price = 300;
                 var bulletSprite = 'bullet';
 
-                var newTower = new Tower(this.game, x, y, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
-                towers.add(newTower);
+                var cell1 = this.game.map.getTile(xTile, yTile, this.game.layer, true);
+                var cell2 = this.game.map.getTile(xTile + 1, yTile, this.game.layer, true);
+                var cell3 = this.game.map.getTile(xTile, yTile + 1, this.game.layer, true);
+                var cell4 = this.game.map.getTile(xTile + 1, yTile + 1, this.game.layer, true);
+
+                if (this.game.money > 0 &&
+                    cell1 != null && cell1.index != 4 &&
+                    cell2 != null && cell2.index != 4 &&
+                    cell3 != null && cell3.index != 4 &&
+                    cell4 != null && cell4.index != 4) {
+                    var newTower = new Tower(this.game, x, y, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
+                    towers.add(newTower);
+
+                    this.game.money -= 100;
+                    this.game.moneyText.text = 'Cash available: $' + this.game.money;
+                    cell1.index = 4;
+                    cell2.index = 4;
+                    cell3.index = 4;
+                    cell4.index = 4;
+                }
 
                 sprite.x = this.game.width - 200;
                 sprite.y = this.game.height - 250;
-                this.game.money -= 100;
-                this.game.moneyText.text = 'Cash available: $' + this.game.money;
             },
 
             /**
@@ -256,9 +272,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
                 return null;
             }
-        }
-        ;
+        };
 
         return Game;
-    })
-;
+    });
