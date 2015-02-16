@@ -150,7 +150,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
             addOneMonster: function () {
                 var monster = monsters.getFirstDead();
 
-                if (true || monster === null) {
+                if (monster === null) {
                     var tileX = this.game.tilePath[0].x;
                     var tileY = this.game.tilePath[0].y;
 
