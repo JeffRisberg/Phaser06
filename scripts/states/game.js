@@ -142,18 +142,20 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
             // add a house at the mouse position or end of path
             addOneHouse: function (sprite, pointer) {
-                var x = 0;
-                var y = 0;
-
+               var tileX, tileY;
                 if (sprite != null) {
-                    x = sprite.x + this.game.tileSize / 2;
-                    y = sprite.y + this.game.tileSize / 2;
+                    var x = sprite.x + this.game.tileSize / 2;
+                    var y = sprite.y + this.game.tileSize / 2;
+
+                    tileX = Math.round(x / this.game.tileSize);
+                    tileY = Math.round(y / this.game.tileSize);
+                }
+                else {
+                    var pathLength = this.game.tilePath.length;
+                    tileX = this.game.tilePath[pathLength - 1].x;
+                    tileY = this.game.tilePath[pathLength - 1].y;
                 }
                 var house = houses.getFirstDead();
-
-                var pathLength = this.game.tilePath.length;
-                var tileX = this.game.tilePath[pathLength - 1].x;
-                var tileY = this.game.tilePath[pathLength - 1].y;
 
                 if (house === null) {
                     house = new House(this.game, tileX, tileY, 1);
