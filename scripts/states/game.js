@@ -142,7 +142,8 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
             // add a house at the mouse position or end of path
             addOneHouse: function (sprite, pointer) {
-               var tileX, tileY;
+                var tileX, tileY;
+
                 if (sprite != null) {
                     var x = sprite.x + this.game.tileSize / 2;
                     var y = sprite.y + this.game.tileSize / 2;
