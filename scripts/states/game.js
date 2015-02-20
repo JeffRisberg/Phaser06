@@ -15,7 +15,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
         var house;
         var tower;
         var timers = {};
-        var fx;
+        var gameover;
 
         function Game(_game) {
             game = _game;
@@ -104,18 +104,40 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                 this.game.fx.addMarker('ping', 10, 1.0);
                 this.game.fx.addMarker('death', 12, 4.2);
                 this.game.fx.addMarker('shot', 17, 1.0);
+
+                gameover = false;
             },
 
             update: function () {
-                // Move the Monsters
-                monsters.forEach(function (monster) {
-                    Monster.prototype.move(monster);
-                });
+                var me = this;
 
-                towers.forEach(function (tower) {
-                    Tower.prototype.attack(tower, monsters);
-                });
+                if (gameover == false) {
+                    // Move the Monsters
+                    monsters.forEach(function (monster) {
+                        Monster.prototype.move(monster);
+                    });
 
+                    towers.forEach(function (tower) {
+                        Tower.prototype.attack(tower, monsters);
+                    });
+
+                    // See if any monster has reach house
+                    monsters.forEach(function (monster) {
+                        var monsterX = monster.x;
+                        var monsterY = monster.y;
+
+                        houses.forEach(function (house) {
+                            var houseX = house.x;
+                            var houseY = house.y;
+
+                            if (Math.abs(monsterX - houseX) < 32 && monsterY - houseY < 32) {
+                                var gameOverText = me.game.add.text(me.game.world.width / 2, me.game.world.height / 2, "Sorry, Game Over", { font: "50px Arial"});
+                                gameOverText.anchor.set(0.5);
+                                gameover = true;
+                            }
+                        });
+                    });
+                }
             },
 
             // add a house at the mouse position or end of path
@@ -161,8 +183,8 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
             addOneTower: function (sprite, pointer) {
                 var x = sprite.x + this.game.tileSize / 2;
                 var y = sprite.y + this.game.tileSize / 2;
-                var xTile = Math.round(x / this.game.tileSize)-1;
-                var yTile = Math.round(y / this.game.tileSize)-1;
+                var xTile = Math.round(x / this.game.tileSize) - 1;
+                var yTile = Math.round(y / this.game.tileSize) - 1;
 
                 var towerSprite = 'tower';
                 var offsetX = 30;
