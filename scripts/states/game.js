@@ -123,20 +123,23 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
                     // See if any monster has reach house
                     monsters.forEach(function (monster) {
-                        var monsterX = monster.x;
-                        var monsterY = monster.y;
+                            var monsterX = monster.x;
+                            var monsterY = monster.y;
 
-                        houses.forEach(function (house) {
-                            var houseX = house.x;
-                            var houseY = house.y;
+                            if (monster.alive) {
+                                houses.forEach(function (house) {
+                                    var houseX = house.x;
+                                    var houseY = house.y;
 
-                            if (Math.abs(monsterX - houseX) < 32 && Math.abs(monsterY - houseY) < 32) {
-                                var gameOverText = me.game.add.text(me.game.world.width / 2, me.game.world.height / 2, "Sorry, Game Over", { font: "50px Arial"});
-                                gameOverText.anchor.set(0.5);
-                                gameover = true;
+                                    if (Math.abs(monsterX - houseX) < 32 && Math.abs(monsterY - houseY) < 32) {
+                                        var gameOverText = me.game.add.text(me.game.world.width / 2, me.game.world.height / 2, "Sorry, Game Over", { font: "50px Arial"});
+                                        gameOverText.anchor.set(0.5);
+                                        gameover = true;
+                                    }
+                                });
                             }
-                        });
-                    });
+                        }
+                    );
                 }
             },
 
@@ -300,4 +303,5 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
         };
 
         return Game;
-    });
+    })
+;
