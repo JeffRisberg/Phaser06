@@ -130,7 +130,7 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                             var houseX = house.x;
                             var houseY = house.y;
 
-                            if (Math.abs(monsterX - houseX) < 32 && monsterY - houseY < 32) {
+                            if (Math.abs(monsterX - houseX) < 32 && Math.abs(monsterY - houseY) < 32) {
                                 var gameOverText = me.game.add.text(me.game.world.width / 2, me.game.world.height / 2, "Sorry, Game Over", { font: "50px Arial"});
                                 gameOverText.anchor.set(0.5);
                                 gameover = true;
