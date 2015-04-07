@@ -1,11 +1,11 @@
 define(['Phaser', 'extensions/Monster'], function (Phaser, Monster) {
     'use strict';
 
-    var Tower = function (game, x, y, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
-        this.xTile = Math.round(x / game.tileSize);
-        this.yTile = Math.round(y / game.tileSize);
+    var Tower = function (game, xTile, yTile, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite, frame) { // Extends Phaser.Sprite
+        this.xTile = xTile;
+        this.yTile = yTile;
 
-        Phaser.Sprite.call(this, game, this.xTile * game.tileSize, this.yTile * game.tileSize, towerSprite, frame);
+        Phaser.Sprite.call(this, game, xTile * game.tileSize - 1, yTile * game.tileSize, towerSprite, frame);
 
         this.anchor.setTo(0.5, 0.5);
         this.alive = true;

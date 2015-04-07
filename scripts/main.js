@@ -7,6 +7,7 @@ requirejs.config({
         almond: '../bower_components/almond/almond',
         phaser: '../bower_components/phaser/dist/phaser.min',
         Phaser: '../bower_components/phaser/dist/phaser.min',
+
         //states
         bootState: 'states/boot',
         preloadState: 'states/preload',

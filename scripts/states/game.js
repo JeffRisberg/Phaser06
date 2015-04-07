@@ -145,25 +145,40 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
 
             // add a house at the mouse position or end of path
             addOneHouse: function (sprite, pointer) {
-                var tileX, tileY;
+                var xTile, yTile;
 
                 if (sprite != null) {
                     var x = sprite.x + this.game.tileSize / 2;
                     var y = sprite.y + this.game.tileSize / 2;
 
-                    tileX = Math.round(x / this.game.tileSize);
-                    tileY = Math.round(y / this.game.tileSize);
+                    xTile = Math.round(x / this.game.tileSize);
+                    yTile = Math.round(y / this.game.tileSize);
                 }
                 else {
                     var pathLength = this.game.tilePath.length;
-                    tileX = this.game.tilePath[pathLength - 1].x;
-                    tileY = this.game.tilePath[pathLength - 1].y;
+                    xTile = this.game.tilePath[pathLength - 1].x;
+                    yTile = this.game.tilePath[pathLength - 1].y;
                 }
                 var house = houses.getFirstDead();
 
-                if (house === null) {
-                    house = new House(this.game, tileX, tileY, 1);
+                var cell1 = this.game.map.getTile(xTile, yTile, this.game.layer, true);
+                var cell2 = this.game.map.getTile(xTile + 1, yTile, this.game.layer, true);
+                var cell3 = this.game.map.getTile(xTile, yTile + 1, this.game.layer, true);
+                var cell4 = this.game.map.getTile(xTile + 1, yTile + 1, this.game.layer, true);
+
+                if (house === null &&
+                    cell1 != null && cell1.index != 4 &&
+                    cell2 != null && cell2.index != 4 &&
+                    cell3 != null && cell3.index != 4 &&
+                    cell4 != null && cell4.index != 4) {
+
+                    house = new House(this.game, xTile, yTile, 1);
                     houses.add(house);
+
+                    cell1.index = 4;
+                    cell2.index = 4;
+                    cell3.index = 4;
+                    cell4.index = 4;
                 }
 
                 if (sprite != null) {
@@ -189,8 +204,9 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
             addOneTower: function (sprite, pointer) {
                 var x = sprite.x + this.game.tileSize / 2;
                 var y = sprite.y + this.game.tileSize / 2;
-                var xTile = Math.round(x / this.game.tileSize) - 1;
-                var yTile = Math.round(y / this.game.tileSize) - 1;
+
+                var xTile = Math.round(x / this.game.tileSize);
+                var yTile = Math.round(y / this.game.tileSize);
 
                 var towerSprite = 'tower';
                 var offsetX = 30;
@@ -213,7 +229,8 @@ define(['extensions/Monster', 'extensions/House', 'extensions/Bullet', 'extensio
                     cell2 != null && cell2.index != 4 &&
                     cell3 != null && cell3.index != 4 &&
                     cell4 != null && cell4.index != 4) {
-                    var newTower = new Tower(this.game, x, y, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
+
+                    var newTower = new Tower(this.game, xTile, yTile, towerSprite, damage, range, fireRate, health, bulletSpeed, price, bulletSprite);
                     towers.add(newTower);
 
                     this.game.money -= 100;
