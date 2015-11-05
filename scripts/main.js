@@ -5,8 +5,7 @@ requirejs.config({
     paths: {
         //libs
         almond: '../bower_components/almond/almond',
-        phaser: '../bower_components/phaser/dist/phaser.min',
-        Phaser: '../bower_components/phaser/dist/phaser.min',
+        phaser: '../bower_components/phaser/build/phaser.min',
 
         //states
         bootState: 'states/boot',
